@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+home
+{% endblock title %}
+
+{% load static %} 
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Welcome, {{ user.username }}!</h1>
+        <img src="{{picture.url}}"  alt="PicSquad Image">
+    {% else %}
+        <h1>Welcome to PicSquad!</h1>
+    {% endif %}
+
+
+    <p>{{ hello }}</p>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        console.log('working')
+    })
+</script>
+{% endblock scripts %}
