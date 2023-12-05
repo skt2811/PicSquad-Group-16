@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+invite friends
+{% endblock title %}
+
+{% block content %}
+
+    {% if is_empty %}
+        <h1>No users to invite...</h1>
+    {% endif %}
+
+    {% for obj in qs %}
+        <div class="ui segment">
+            <div class="ui three column grid">
+                <div class="column">
+                    <div class="ui card">
+                        <div class="image">
+                            <img src="{{ obj.avatar.url }}">
+                        </div>
+                        <div class="content">
+                            <a class="header" href="{% url 'profiles:profile-detail-view' slug=obj.slug %}">{{ obj.user }}</a>
+                            <div class="meta">
+                                <span>{{ obj.bio }}</span>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <form action="{% url 'profiles:send-invite' %}" method="POST" class="ui form">
+                                {% csrf_token %}
+                                <input type="hidden" name="profile_pk" value="{{ obj.pk }}">
+                                <button type="submit" class="ui positive basic button"><i class="plus square icon"></i>Add to Friends</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock content %}
